@@ -10,11 +10,15 @@ import {
   fadeTransition,
 } from "spectacle";
 import { Page } from "@/components/Page";
-import { MainTemplate } from "@/components/MainTemplate";
+// import { MainTemplate } from "@/components/MainTemplate";
 import VirtualizationVisualization from "@/components/VirtualizationVisualization";
 import VirtualizationVariableVisualization from "@/components/VirtualizationVariableVisualization";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const MainTemplate = dynamic(() => import("@/components/MainTemplate"), {
+  ssr: false,
+});
 
 export function Presentation() {
   return (
@@ -320,7 +324,13 @@ export function Presentation() {
           </Heading>
           <Heading>Questions?</Heading>
           <Heading className="!text-xl gradient-text">
-            https://virtual.brisc.pro
+            <Link href="https://virtual.brisc.pro" target="_blank">
+              https://virtual.brisc.pro
+            </Link>{" "}
+            <br />
+            <Link href="https://github.com/mtbrisc/virtual" target="_blank">
+              https://github.com/mtbrisc/virtual
+            </Link>
           </Heading>
         </Page>
       </Deck>

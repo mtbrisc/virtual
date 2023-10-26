@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { useContext } from "react";
 
-export function MainTemplate({
+export default function MainTemplate({
   slideNumber,
   numberOfSlides,
 }: {
@@ -14,7 +14,8 @@ export function MainTemplate({
 }) {
   const { stepForward, stepBackward, ...rest } = useContext(DeckContext);
   const renderPortal = (children: React.ReactNode) => {
-    if (typeof document === "undefined") return null;
+    if (typeof window === "undefined" || typeof document === "undefined")
+      return null;
     return ReactDOM.createPortal(children, document.querySelector("body")!);
   };
   return renderPortal(
