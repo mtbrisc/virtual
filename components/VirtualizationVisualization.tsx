@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useSpring, animated } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 const anim = {
   from: { y: 0 },
   to: { y: -400 },

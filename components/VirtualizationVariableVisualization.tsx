@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useSpring, animated } from "react-spring";
+import { animated, useSpring } from "@react-spring/web";
 const itemHeights = [
   25, 150, 75, 100, 50, 25, 35, 25, 150, 200, 75, 100, 50, 25, 150, 75, 100, 50,
   25, 35, 25, 150, 200, 75, 100, 50,

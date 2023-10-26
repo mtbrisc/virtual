@@ -20,11 +20,14 @@ export function DemoTanstack() {
 
   const rowVirtualizer = useVirtualizer({
     count: items.length,
-    getScrollElement: () => parentRef.current!,
+    getScrollElement: () => parentRef.current,
     estimateSize: () => 48,
-    overscan: 2,
+    overscan: 5,
   });
 
+  /**
+   * Using library @tanstack/react-virtual
+   */
   return (
     <div
       ref={parentRef}
@@ -33,7 +36,7 @@ export function DemoTanstack() {
       <ul
         className="relative"
         style={{
-          height: `${rowVirtualizer.totalSize}px`,
+          height: `${rowVirtualizer.getTotalSize()}px`,
         }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => (

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client";
 
 import { useMemo, useRef, useState } from "react";
@@ -12,27 +14,19 @@ const items = new Array(itemCount).fill(0).map((_, i) => ({
   ),
 }));
 
+// all the same height - could be a static value if known ahead, could be calculated or dynamic at runtime
 const itemHeight = 48;
 
 export function DemoScratch() {
-  /**
-   * Building virtualization from scratch
-   * 1. Identify outer container (the element that will scroll. could be window, body, or in this case - a div)
-   * 2. Height of inner container is the sum of all item heights
-   * 3. Add a scroll listener
-   * 4. Calculate the visible items
-   * 5. Only render the visible items
-   */
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const virtualHeight = items.length * itemHeight;
   const [scrollOffset, setScrollOffset] = useState(0);
-  const handleScroll = (event: React.UIEvent<HTMLElement>) => {
-    setScrollOffset(event.currentTarget.scrollTop);
-  };
 
   const visibleItems = useMemo(() => {
     const containerHeight = containerRef.current?.clientHeight!;
 
-    // Calculate the start and end indexes based on accumulated height
+    // Calculate the start and end indexes based on accumulated heights
     let cumulativeHeight = 0;
 
     // Default to entire list
@@ -67,6 +61,10 @@ export function DemoScratch() {
     return itemsToRender;
   }, [scrollOffset]);
 
+  const handleScroll = (event: React.UIEvent<HTMLElement>) => {
+    setScrollOffset(event.currentTarget.scrollTop);
+  };
+
   return (
     <div
       ref={containerRef}
@@ -76,7 +74,7 @@ export function DemoScratch() {
       <ul
         className="relative"
         style={{
-          height: items.length * itemHeight,
+          height: virtualHeight,
         }}
       >
         {visibleItems.map(({ key, offset, content }) => (

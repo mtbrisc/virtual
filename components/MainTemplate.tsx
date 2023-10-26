@@ -1,3 +1,5 @@
+"use client";
+
 import { /* Progress, */ DeckContext } from "spectacle";
 import ReactDOM from "react-dom";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
@@ -12,6 +14,7 @@ export function MainTemplate({
 }) {
   const { stepForward, stepBackward, ...rest } = useContext(DeckContext);
   const renderPortal = (children: React.ReactNode) => {
+    if (typeof document === "undefined") return null;
     return ReactDOM.createPortal(children, document.querySelector("body")!);
   };
   return renderPortal(
